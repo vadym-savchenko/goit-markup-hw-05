@@ -30,7 +30,7 @@
           >
           <ul class="site-nav list">
             <li class="nav-item">
-              <a class="nav-link link" href="./index.html">Studio</a>
+              <a class="nav-link activ link" href="./index.html">Studio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link" href="./portfolio.html">Portfolio</a>
@@ -63,7 +63,9 @@
       <section class="overlay">
         <div class="container">
           <h1 class="hero-title">Effective Solutions for Your Business</h1>
-          <button type="button" class="button primery">Order Service</button>
+          <button type="button" class="button primery" data-modal-open>
+            Order Service
+          </button>
         </div>
       </section>
       <!-- Section-1  -->
@@ -561,5 +563,17 @@
         </div>
       </div>
     </footer>
+
+    <!-- MODAL WINDOW  -->
+    <div class="backdrop is-hidden" data-modal>
+      <div class="modal">
+        <button class="modal-close-btn" data-modal-close>
+          <svg class="modal-close-icon" wudth="8" height="8">
+            <use href="./images/icons.svg#icon-close-btn"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <script src="./js/modal.js"></script>
   </body>
 </html>

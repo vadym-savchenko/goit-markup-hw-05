@@ -12,6 +12,11 @@
   --border-icon-color: #8e8f99;
   --white-color: #ffffff;
   --green-accent-color: #31d0aa;
+  --modal-bgr-color: rgba(46, 47, 66, 0.4);
+  --modal-white-bgr-color: #fcfcfc;
+  --modal-button-bgr-color: #e7e9fc;
+  --anim-time: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --modal-index: 100;
 }
 /* Style color  */
 /* /* основной цвет #434455  */
@@ -103,8 +108,26 @@ img {
 .nav-item {
 }
 .nav-link {
+  position: relative;
   color: var(--title-text-color);
   font-weight: 500;
+}
+.nav-link::after {
+  display: block;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  /* background-color: var(--blue-accent-color);  */
+}
+.nav-link.activ {
+  color: var(--blue-accent-color);
+}
+.nav-link.activ::after {
+  background-color: var(--blue-accent-color);
 }
 .contact-link,
 .nav-link {
@@ -117,10 +140,10 @@ img {
 }
 .site-nav {
   display: flex;
+  transition: color var(--anim-time);
 }
 .site-nav .link:hover,
-.site-nav .link:focus,
-.button.secondary:active {
+.site-nav .link:focus {
   color: var(--blue-accent-color);
 }
 
@@ -133,6 +156,7 @@ img {
 }
 .contact-nav {
   display: flex;
+  transition: color var(--anim-time);
 }
 .contact-nav .link {
   color: var(--primery-text-color);
@@ -284,6 +308,7 @@ img {
   height: 40px;
   border-radius: 50%;
   background-color: var(--blue-nomal-color);
+  transition: background-color var(--anim-time);
 }
 .social-list-link:hover,
 .social-list-link:focus {
@@ -314,6 +339,7 @@ img {
   color: var(--border-icon-color);
   width: 100%;
   height: 100%;
+  transition: color var(--anim-time), border var(--anim-time);
 }
 .client-link:hover,
 .client-link:focus {
@@ -402,8 +428,12 @@ img {
   display: block;
   flex-basis: calc((100% - 48px) / 3);
 }
+.work-item:hover .portfolio-overlay {
+  transform: translateY(0%);
+}
 .work-item-link {
   display: block;
+  transition: border var(--anim-time), transition box-shadow var(--anim-time);
 }
 .work-item-link:hover,
 .work-item-link:focus {
@@ -416,6 +446,27 @@ img {
   border: 1px solid #e7e9fc;
   border-top: none;
 }
+
+/* PORTFOLIO OVERLAY  */
+.thumb {
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(100%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--blue-nomal-color);
+  transition: transform var(--anim-time);
+}
+.portfolio-overlay-text {
+  color: var(--cloud-text-color);
+  padding: 40px 32px;
+}
+
 /* Button  */
 .button {
   display: block;
@@ -448,6 +499,7 @@ img {
   min-width: 169px;
   height: 56px;
   border: none;
+  transition: background-color var(--anim-time);
 }
 .button.primery:hover,
 .button.primery:focus {
@@ -466,6 +518,8 @@ img {
   padding: 12px 24px;
   border: 1px solid var(--border-btn-color);
   min-width: 69px;
+  transition: background-color var(--anim-time), color var(--anim-time),
+    box-shadow var(--anim-time), border var(--anim-time);
 }
 .button.secondary:hover,
 .button.secondary:focus {
@@ -476,7 +530,66 @@ img {
     0px 2px 2px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
 }
+.button.secondary:active {
+  color: var(--blue-accent-color);
+}
 
 .text {
   color: var(--primery-text-color);
+}
+
+/* MODAL WINDOW  */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-bgr-color);
+  z-index: var(--modal-index);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: initial;
+  transition: opacity var(--anim-time), visbility var(--anim-time);
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition-delay: 250ms;
+}
+.modal {
+  position: absolute;
+  top: calc(50%);
+  left: calc(50%);
+  width: 408px;
+  height: 576px;
+  background-color: var(--modal-white-bgr-color);
+  border-radius: 4px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  transition: opacity var(--anim-time), transform var(--anim-time);
+  transition-delay: 250ms;
+}
+.backdrop.is-hidden .modal {
+  opacity: 0;
+  transform: translate(-50%, -70%);
+  transition-delay: 0ms;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--modal-button-bgr-color);
+}
+.modal-close-icon {
 }
